@@ -4,10 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.launchcode.techjobs.oo.Job;
+import org.launchcode.techjobs.oo.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by LaunchCode
@@ -28,6 +27,23 @@ public class JobTest {
         assertFalse(jobAId == jobBId); //job ids are not the same
         assertTrue(jobBId - jobAId == 1); //job ids differ by 1
 
+    }
+
+    @Test
+    public void testJobConstructorSetsAllFields(){
+        Job job = new Job(
+                "Product tester",
+                new Employer("ACME"),
+                new Location("Desert"),
+                new PositionType("Quality control"),
+                new CoreCompetency("Persistence"));
+        System.out.println(job.getPositionType().toString());
+        System.out.println(job.getEmployer().toString());
+        assertTrue(job.getName() == "Product tester");
+        assertTrue(job.getEmployer().toString() == "ACME");
+        assertTrue(job.getLocation().toString() == "Desert");
+        assertTrue(job.getPositionType().toString() == "Quality control");
+        assertTrue(job.getCoreCompetency().toString() == "Persistence");
     }
 
 }
