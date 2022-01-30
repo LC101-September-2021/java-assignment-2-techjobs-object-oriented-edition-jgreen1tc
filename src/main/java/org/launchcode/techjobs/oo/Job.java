@@ -128,7 +128,6 @@ public class Job {
                 "Core Competency: " + coreCompetency +
                 "\n";
         ArrayList<String> jobFields = new ArrayList<>(Arrays.asList(name, employer, location, positionType, coreCompetency));
-        boolean allNull;
         int count = 0;
         for(int i = 0; i < jobFields.size(); i++){
             if (jobFields.get(i) =="Data not available"){
