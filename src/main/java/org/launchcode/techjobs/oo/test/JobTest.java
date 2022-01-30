@@ -15,10 +15,30 @@ import static org.junit.Assert.*;
 public class JobTest {
     private Job jobA;
     private Job jobB;
+    private Job jobC;
+    private Job jobD;
     @Before
     public void createTestJobs(){
-        jobA = new Job();
-        jobB = new Job();
+        jobA = new Job("Product tester",
+                new Employer("ACME"),
+                new Location("Desert"),
+                new PositionType("Quality control"),
+                new CoreCompetency("Persistence"));
+        jobB = new Job("Product tester",
+                new Employer("ACME"),
+                new Location("Desert"),
+                new PositionType("Quality control"),
+                new CoreCompetency("Persistence"));
+        jobC = new Job("LaunchCoder",
+                new Employer("LaunchCode"),
+                new Location("St. Louis, MO"),
+                new PositionType("Web Developer"),
+                new CoreCompetency(""));
+        jobD = new Job("",
+                new Employer(""),
+                new Location(""),
+                new PositionType(""),
+                new CoreCompetency(""));
     }
     @Test
     public void testSettingJobId(){
@@ -31,19 +51,52 @@ public class JobTest {
 
     @Test
     public void testJobConstructorSetsAllFields(){
-        Job job = new Job(
-                "Product tester",
-                new Employer("ACME"),
-                new Location("Desert"),
-                new PositionType("Quality control"),
-                new CoreCompetency("Persistence"));
-        System.out.println(job.getPositionType().toString());
-        System.out.println(job.getEmployer().toString());
-        assertTrue(job.getName() == "Product tester");
-        assertTrue(job.getEmployer().toString() == "ACME");
-        assertTrue(job.getLocation().toString() == "Desert");
-        assertTrue(job.getPositionType().toString() == "Quality control");
-        assertTrue(job.getCoreCompetency().toString() == "Persistence");
+        assertTrue(jobA.getName() instanceof String);
+        assertTrue(jobA.getName() == "Product tester");
+        assertTrue(jobA.getEmployer() instanceof Employer);
+        assertTrue(jobA.getEmployer().toString() == "ACME");
+        assertTrue(jobA.getLocation() instanceof Location);
+        assertTrue(jobA.getLocation().toString() == "Desert");
+        assertTrue(jobA.getPositionType() instanceof PositionType);
+        assertTrue(jobA.getPositionType().toString() == "Quality control");
+        assertTrue(jobA.getCoreCompetency() instanceof CoreCompetency);
+        assertTrue(jobA.getCoreCompetency().toString() == "Persistence");
     }
+
+    @Test
+    public void testJobsForEquality(){
+        assertFalse(jobA.equals(jobB));
+    }
+
+    @Test
+    public void testPrintJobFormatting(){
+        String[] jobBArray = jobB.toString().split("\n", -1); //verifies each item is separated by a newline char
+        String[] jobCArray = jobC.toString().split("\n", -1);
+        String jobBIdStr = Integer.toString(jobB.getId()); //type change needed for comparison
+        String jobCIdStr = Integer.toString(jobC.getId());
+        System.out.println(jobA.toString());
+        for(int i=0;i<jobBArray.length;i++) {
+            System.out.println(jobBArray[i]);
+        }
+        System.out.println(jobC.toString());
+        System.out.println(jobD.toString());
+        assertSame(jobBArray.length , 8); //formatting implies 8 total lines per job
+        assertSame(jobA.toString().indexOf("\n") , 0); //starts with newline char
+        assertTrue(jobA.toString().lastIndexOf("\n")==  jobA.toString().length()-1); //ends with newline char
+        assertTrue(jobBArray[1].contains("ID: " + jobBIdStr));
+        assertTrue(jobBArray[2].contains("Name: " + jobB.getName()));
+        assertTrue(jobBArray[3].contains("Employer: " + jobB.getEmployer()));
+        assertTrue(jobBArray[4].contains("Location: " + jobB.getLocation()));
+        assertTrue(jobBArray[5].contains("Position Type: " + jobB.getPositionType()));
+        assertTrue(jobBArray[6].contains("Core Competency: " + jobB.getCoreCompetency()));
+        assertTrue(jobCArray[1].contains("ID: " + jobCIdStr));
+        assertTrue(jobCArray[2].contains("Name: " + jobC.getName()));
+        assertTrue(jobCArray[3].contains("Employer: " + jobC.getEmployer()));
+        assertTrue(jobCArray[4].contains("Location: " + jobC.getLocation()));
+        assertTrue(jobCArray[5].contains("Position Type: " + jobC.getPositionType()));
+        assertTrue(jobCArray[6].contains("Core Competency: Data not available"));
+        assertTrue(jobD.toString()=="OOPS! This job does not seem to exist.");
+    }
+
 
 }

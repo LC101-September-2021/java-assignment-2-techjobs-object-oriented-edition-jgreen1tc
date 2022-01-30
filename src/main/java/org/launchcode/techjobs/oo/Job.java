@@ -1,5 +1,7 @@
 package org.launchcode.techjobs.oo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Job {
@@ -19,6 +21,7 @@ public class Job {
     }
 
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
+        this();
         this.name = name;
         this.employer = employer;
         this.location = location;
@@ -82,6 +85,63 @@ public class Job {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        String name;
+        if (this.getName().isEmpty()) {
+            name = "Data not available";
+        } else {
+            name = getName();
+        }
+        String employer;
+        if (getEmployer().toString().isEmpty()) {
+            employer = "Data not available";
+        } else {
+            employer = getEmployer().toString();
+        }
+        String location;
+        if (getLocation().toString().isEmpty()){
+            location = "Data not available";
+        } else {
+            location = getLocation().toString();
+        }
+        String positionType;
+        if (getPositionType().toString().isEmpty()) {
+            positionType = "Data not available";
+        } else {
+            positionType = getPositionType().toString();
+        }
+
+        String coreCompetency;
+        if(getCoreCompetency().toString().isEmpty()) {
+            coreCompetency = "Data not available";
+        } else {
+            coreCompetency = getCoreCompetency().toString();
+        }
+        String jobString = "\n" +
+                "ID: " + id + "\n" +
+                "Name: " + name + "\n" +
+                "Employer: " + employer + "\n" +
+                "Location: " + location + "\n" +
+                "Position Type: " + positionType + "\n" +
+                "Core Competency: " + coreCompetency +
+                "\n";
+        ArrayList<String> jobFields = new ArrayList<>(Arrays.asList(name, employer, location, positionType, coreCompetency));
+        boolean allNull;
+        int count = 0;
+        for(int i = 0; i < jobFields.size(); i++){
+            if (jobFields.get(i) =="Data not available"){
+                count++;
+            }
+        }
+        if (count == jobFields.size()){
+            jobString = "OOPS! This job does not seem to exist.";
+        }
+
+        return jobString;
+    }
+
     // TODO: Add two constructors - one to initialize a unique ID and a second to initialize the
     //  other five fields. The second constructor should also call the first in order to initialize
     //  the 'id' field.
