@@ -74,12 +74,6 @@ public class JobTest {
         String[] jobCArray = jobC.toString().split("\n", -1);
         String jobBIdStr = Integer.toString(jobB.getId()); //type change needed for comparison
         String jobCIdStr = Integer.toString(jobC.getId());
-        System.out.println(jobA.toString());
-        for(int i=0;i<jobBArray.length;i++) {
-            System.out.println(jobBArray[i]);
-        }
-        System.out.println(jobC.toString());
-        System.out.println(jobD.toString());
         assertSame(jobBArray.length , 8); //formatting implies 8 total lines per job
         assertSame(jobA.toString().indexOf("\n") , 0); //starts with newline char
         assertTrue(jobA.toString().lastIndexOf("\n")==  jobA.toString().length()-1); //ends with newline char
