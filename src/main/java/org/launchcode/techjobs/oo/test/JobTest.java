@@ -83,11 +83,6 @@ public class JobTest {
         assertTrue(jobBArray[4].contains("Location: " + jobB.getLocation()));
         assertTrue(jobBArray[5].contains("Position Type: " + jobB.getPositionType()));
         assertTrue(jobBArray[6].contains("Core Competency: " + jobB.getCoreCompetency()));
-        assertTrue(jobCArray[1].contains("ID: " + jobCIdStr));
-        assertTrue(jobCArray[2].contains("Name: " + jobC.getName()));
-        assertTrue(jobCArray[3].contains("Employer: " + jobC.getEmployer()));
-        assertTrue(jobCArray[4].contains("Location: " + jobC.getLocation()));
-        assertTrue(jobCArray[5].contains("Position Type: " + jobC.getPositionType()));
         assertTrue(jobCArray[6].contains("Core Competency: Data not available"));
         assertTrue(jobD.toString()=="OOPS! This job does not seem to exist.");
     }
