@@ -69,22 +69,30 @@ public class JobTest {
     }
 
     @Test
-    public void testPrintJobFormatting(){
+    public void testToStringStartsAndEndsWithNewLine() {
         String[] jobBArray = jobB.toString().split("\n", -1); //verifies each item is separated by a newline char
-        String[] jobCArray = jobC.toString().split("\n", -1);
+        assertSame(jobBArray.length, 8); //formatting implies 8 total lines per job
+        assertSame(jobA.toString().indexOf("\n"), 0); //starts with newline char
+        assertEquals(jobA.toString().lastIndexOf("\n"), jobA.toString().length() - 1); //ends with newline char
+    }
+
+    @Test
+    public void testToStringContaintsCorrectLabelsAndData() {
+        String[] jobBArray = jobB.toString().split("\n", -1);
         String jobBIdStr = Integer.toString(jobB.getId()); //type change needed for comparison
-        String jobCIdStr = Integer.toString(jobC.getId());
-        assertSame(jobBArray.length , 8); //formatting implies 8 total lines per job
-        assertSame(jobA.toString().indexOf("\n") , 0); //starts with newline char
-        assertTrue(jobA.toString().lastIndexOf("\n")==  jobA.toString().length()-1); //ends with newline char
         assertTrue(jobBArray[1].contains("ID: " + jobBIdStr));
         assertTrue(jobBArray[2].contains("Name: " + jobB.getName()));
         assertTrue(jobBArray[3].contains("Employer: " + jobB.getEmployer()));
         assertTrue(jobBArray[4].contains("Location: " + jobB.getLocation()));
         assertTrue(jobBArray[5].contains("Position Type: " + jobB.getPositionType()));
         assertTrue(jobBArray[6].contains("Core Competency: " + jobB.getCoreCompetency()));
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField(){
+        String[] jobCArray = jobC.toString().split("\n", -1);
         assertTrue(jobCArray[6].contains("Core Competency: Data not available"));
-        assertTrue(jobD.toString()=="OOPS! This job does not seem to exist.");
+        assertSame("OOPS! This job does not seem to exist.", jobD.toString());
     }
 
 
