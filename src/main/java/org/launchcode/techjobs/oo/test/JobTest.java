@@ -77,7 +77,7 @@ public class JobTest {
     }
 
     @Test
-    public void testToStringContaintsCorrectLabelsAndData() {
+    public void testToStringContainsCorrectLabelsAndData() {
         String[] jobBArray = jobB.toString().split("\n", -1);
         String jobBIdStr = Integer.toString(jobB.getId()); //type change needed for comparison
         assertTrue(jobBArray[1].contains("ID: " + jobBIdStr));
